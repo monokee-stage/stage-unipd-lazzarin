@@ -35,28 +35,17 @@ import { agentDependencies, HttpInboundTransport } from "@aries-framework/node";
 import { anoncreds } from "@hyperledger/anoncreds-nodejs";
 import { ariesAskar } from "@hyperledger/aries-askar-nodejs";
 
-//type DemoAgent = Agent<ReturnType<typeof getAskarAnonCredsIndyModules>>;
-
 export class BaseAgent {
   public port: number;
   public name: string;
   public config: InitConfig;
   public agent: Agent;
-  public useLegacyIndySdk: boolean;
 
-  public constructor({
-    port,
-    name,
-    useLegacyIndySdk = false,
-  }: {
-    port: number;
-    name: string;
-    useLegacyIndySdk?: boolean;
-  }) {
+  public constructor({ port, name }: { port: number; name: string }) {
     this.name = name;
     this.port = port;
 
-    const config = {
+    const config: InitConfig = {
       label: name,
       walletConfig: {
         id: name,
@@ -67,18 +56,12 @@ export class BaseAgent {
 
     this.config = config;
 
-    this.useLegacyIndySdk = useLegacyIndySdk;
-
     this.agent = new Agent({
       config,
       dependencies: agentDependencies,
       modules: getAskarAnonCredsIndyModules(),
     });
-    this.agent.registerInboundTransport(new HttpInboundTransport({ port }));
-    this.agent.registerOutboundTransport(new HttpOutboundTransport());
-  }
 
-  public async initializeAgent(config: InitConfig) {
     this.agent = new Agent({
       config,
       modules: {
@@ -107,12 +90,11 @@ export class BaseAgent {
       dependencies: agentDependencies,
     });
 
-    // Register a simple `WebSocket` outbound transport
-    this.agent.registerOutboundTransport(new WsOutboundTransport());
-
-    // Register a simple `Http` outbound transport
+    this.agent.registerInboundTransport(new HttpInboundTransport({ port }));
     this.agent.registerOutboundTransport(new HttpOutboundTransport());
+  }
 
+  public async initializeAgent() {
     await this.agent.initialize();
 
     console.log(`\nAgent ${this.name} created!\n`);

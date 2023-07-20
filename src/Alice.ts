@@ -9,7 +9,7 @@ import {
 import { BaseAgent } from "./BaseAgent";
 import { Output, greenText, redText } from "../OutputClass";
 
-export class Alice extends BaseAgent {
+export class Holder extends BaseAgent {
   public connected: boolean;
   connectionRecordFaberId: any;
 
@@ -18,30 +18,11 @@ export class Alice extends BaseAgent {
     this.connected = false;
   }
 
-  public static async initializeAgent(): Promise<Alice> {
-    const alice = new Alice(9000, "alice");
+  public static async initializeAgent(): Promise<Holder> {
+    const alice = new Holder(3003, "holder");
 
-    const config: InitConfig = {
-      label: "alice",
-      walletConfig: {
-        id: "mainAliceWallet",
-        key: "demoagentalice00000000000000000000",
-      },
-    };
-    alice.agent.registerOutboundTransport(new WsOutboundTransport());
-
-    // Register a simple `Http` outbound transport
-    alice.agent.registerOutboundTransport(new HttpOutboundTransport());
-
-    await alice.initializeAgent(config);
+    await alice.initializeAgent();
     return alice;
-  }
-
-  private async getConnectionRecord() {
-    if (!this.connectionRecordFaberId) {
-      throw Error(redText(Output.MissingConnectionRecord));
-    }
-    return await this.agent.connections.getById(this.connectionRecordFaberId);
   }
 
   private async receiveConnectionRequest(invitationUrl: string) {
@@ -78,37 +59,6 @@ export class Alice extends BaseAgent {
     );
 
     return outOfBandRecord;
-  }
-
-  public async acceptCredentialOffer(
-    credentialRecord: CredentialExchangeRecord
-  ) {
-    const linkSecretIds = await this.agent.modules.anoncreds.getLinkSecretIds();
-    if (linkSecretIds.length === 0) {
-      await this.agent.modules.anoncreds.createLinkSecret();
-    }
-
-    await this.agent.credentials.acceptOffer({
-      credentialRecordId: credentialRecord.id,
-    });
-  }
-
-  public async acceptProofRequest(proofRecord: ProofExchangeRecord) {
-    const requestedCredentials =
-      await this.agent.proofs.selectCredentialsForRequest({
-        proofRecordId: proofRecord.id,
-      });
-
-    await this.agent.proofs.acceptRequest({
-      proofRecordId: proofRecord.id,
-      proofFormats: requestedCredentials.proofFormats,
-    });
-    console.log(greenText("\nProof request accepted!\n"));
-  }
-
-  public async sendMessage(message: string) {
-    const connectionRecord = await this.getConnectionRecord();
-    await this.agent.basicMessages.sendMessage(connectionRecord.id, message);
   }
 
   public async exit() {
