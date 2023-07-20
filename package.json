@@ -3,9 +3,39 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "refresh": "rm -rf ./node_modules ./yarn.lock && yarn"
+  },
+  "dependencies": {
+    "@hyperledger/anoncreds-nodejs": "^0.1.0",
+    "@hyperledger/aries-askar-nodejs": "^0.1.0",
+    "inquirer": "^8.2.5",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@aries-framework/anoncreds": "*",
+    "@aries-framework/anoncreds-rs": "*",
+    "@aries-framework/askar": "*",
+    "@aries-framework/cheqd": "*",
+    "@aries-framework/core": "*",
+    "@aries-framework/node": "*",
+    "@types/figlet": "^1.5.4",
+    "@types/inquirer": "^8.2.6",
+    "clear": "^0.1.0",
+    "figlet": "^1.5.2",
+    "ts-node": "^10.4.0"
+  },
+  "overrides": {
+    "@cosmjs/amino": "npm:@cosmjs-rn/amino@^0.27.1",
+    "@cosmjs/encoding": "npm:@cosmjs-rn/encoding@^0.27.1",
+    "@cosmjs/math": "npm:@cosmjs-rn/math@^0.27.1",
+    "@cosmjs/stargate": "npm:@cosmjs-rn/stargate@^0.27.1",
+    "@cosmjs/tendermint-rpc": "npm:@cosmjs-rn/tendermint-rpc@^0.27.1",
+    "@cosmjs/utils": "npm:@cosmjs-rn/utils@^0.27.1",
+    "@cosmjs/proto-signing": "npm:@cosmjs-rn/proto-signing@^0.27.1",
+    "@cosmjs/crypto": "npm:@cosmjs-rn/crypto@^0.27.1"
+  }
 }
