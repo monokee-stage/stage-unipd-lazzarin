@@ -22,6 +22,8 @@ export class Faber extends BaseAgent {
   public outOfBandId?: string;
   public credentialDefinition?: RegisterCredentialDefinitionReturnStateFinished;
   public anonCredsIssuerId?: string;
+  private schemaResult: any;
+  private schemaResultID: any;
 
   public constructor(port: number, name: string) {
     super({ port, name });
@@ -71,11 +73,12 @@ export class Faber extends BaseAgent {
         methodSpecificIdAlgo: "uuid",
       },
     });
+    this.anonCredsIssuerId = cheqdDid.didState.did;
 
     console.log("cheqdDid: ", cheqdDid);
 
     console.log("Creating schema...");
-    const schemaResult = await this.agent.modules.anoncreds.registerSchema({
+    this.schemaResult = await this.agent.modules.anoncreds.registerSchema({
       schema: {
         attrNames: ["name"],
         issuerId: cheqdDid.didState.did,
@@ -85,35 +88,17 @@ export class Faber extends BaseAgent {
       options: {},
     });
 
-    if (schemaResult.schemaState.state === "failed") {
+    if (this.schemaResult.schemaState.state === "failed") {
       throw new Error(
-        `Error creating schema: ${schemaResult.schemaState.reason}`
+        `Error creating schema: ${this.schemaResult.schemaState.reason}`
       );
     }
-    console.log("schemaResult: ", schemaResult);
-  }
+    console.log("schemaResult: ", this.schemaResult);
+    this.schemaResultID = this.schemaResult.schemaState.schemaId;
+    console.log("schemaResultID: ", this.schemaResultID);
 
-  public async importDid(registry: string) {
-    // NOTE: we assume the did is already registered on the ledger, we just store the private key in the wallet
-    // and store the existing did in the wallet
-    // indy did is based on private key (seed)
-    const unqualifiedIndyDid = "2jEvRuKmfBJTRa7QowDpNN";
-    const cheqdDid = "did:cheqd:testnet:d37eba59-513d-42d3-8f9f-d1df0548b675";
-
-    const did = cheqdDid;
-    await this.agent.dids.import({
-      did,
-      overwrite: true,
-      privateKeys: [
-        {
-          keyType: KeyType.Ed25519,
-          privateKey: TypedArrayEncoder.fromString(
-            "afjdemoverysercure00000000000000"
-          ),
-        },
-      ],
-    });
-    this.anonCredsIssuerId = did;
+    console.log("Creating credential definition...");
+    this.registerCredentialDefinition();
   }
 
   private async getConnectionRecord() {
@@ -141,61 +126,6 @@ export class Faber extends BaseAgent {
 
     console.log(Output.ConnectionLink, connectionInvite, "\n");
     return connectionInvite;
-  }
-
-  private async waitForConnection() {
-    if (!this.outOfBandId) {
-      throw new Error(redText(Output.MissingConnectionRecord));
-    }
-
-    console.log("Waiting for Alice to finish connection...");
-
-    const getConnectionRecord = (outOfBandId: string) =>
-      new Promise<ConnectionRecord>((resolve, reject) => {
-        // Timeout of 20 seconds
-        const timeoutId = setTimeout(
-          () => reject(new Error(redText(Output.MissingConnectionRecord))),
-          20000000
-        );
-
-        // Start listener
-        this.agent.events.on<ConnectionStateChangedEvent>(
-          ConnectionEventTypes.ConnectionStateChanged,
-          (e) => {
-            if (e.payload.connectionRecord.outOfBandId !== outOfBandId) return;
-
-            clearTimeout(timeoutId);
-            resolve(e.payload.connectionRecord);
-          }
-        );
-
-        // Also retrieve the connection record by invitation if the event has already fired
-        void this.agent.connections
-          .findAllByOutOfBandId(outOfBandId)
-          .then(([connectionRecord]) => {
-            if (connectionRecord) {
-              clearTimeout(timeoutId);
-              resolve(connectionRecord);
-            }
-          });
-      });
-
-    const connectionRecord = await getConnectionRecord(this.outOfBandId);
-
-    try {
-      await this.agent.connections.returnWhenIsConnected(connectionRecord.id);
-    } catch (e) {
-      console.log(
-        redText(`\nTimeout of 20 seconds reached.. Returning to home screen.\n`)
-      );
-      return;
-    }
-    console.log(greenText(Output.ConnectionEstablished));
-  }
-
-  public async setupConnection() {
-    await this.printInvite();
-    await this.waitForConnection();
   }
 
   private printSchema(name: string, version: string, attributes: string[]) {
@@ -243,16 +173,15 @@ export class Faber extends BaseAgent {
     return schemaState;
   }
 
-  private async registerCredentialDefinition(schemaId: string) {
+  public async registerCredentialDefinition() {
     if (!this.anonCredsIssuerId) {
       throw new Error(redText("Missing anoncreds issuerId"));
     }
-
     console.log("\nRegistering credential definition...\n");
     const { credentialDefinitionState } =
       await this.agent.modules.anoncreds.registerCredentialDefinition({
         credentialDefinition: {
-          schemaId,
+          schemaId: this.schemaResultID,
           issuerId: this.anonCredsIssuerId,
           tag: "latest",
         },
