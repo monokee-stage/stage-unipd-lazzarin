@@ -1,5 +1,5 @@
-import { Holder } from "./Alice";
-import { Issuer } from "./Faber";
+import { Holder } from "./Holder";
+import { Issuer } from "./Issuer";
 
 const run = async () => {
   console.log("Starting...");
@@ -15,7 +15,7 @@ const run = async () => {
 
   await faber.createDidandSchema();
   console.log("Creating the credential definition as issuer...");
-  await faber.RegisterCredentialDefinition();
+  await faber.registerCredentialDefinition();
 };
 
 export default run;
