@@ -8,6 +8,7 @@ import {
 } from "@aries-framework/core";
 import { BaseAgent } from "./BaseAgent";
 import { Output, greenText, redText } from "../OutputClass";
+import { HttpInboundTransport } from "@aries-framework/node";
 
 export class Alice extends BaseAgent {
   public connected: boolean;
@@ -28,12 +29,12 @@ export class Alice extends BaseAgent {
         key: "demoagentalice00000000000000000000",
       },
     };
+
+    await alice.initializeAgent(config);
     alice.agent.registerOutboundTransport(new WsOutboundTransport());
 
     // Register a simple `Http` outbound transport
     alice.agent.registerOutboundTransport(new HttpOutboundTransport());
-
-    await alice.initializeAgent(config);
     return alice;
   }
 

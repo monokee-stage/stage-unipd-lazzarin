@@ -2,6 +2,7 @@ import {
   ConnectionEventTypes,
   ConnectionRecord,
   ConnectionStateChangedEvent,
+  CredentialExchangeRecord,
   DidCreateResult,
   DidDocument,
   DidOperationStateActionBase,
@@ -39,18 +40,16 @@ export class Faber extends BaseAgent {
         key: "demoagentfaber00000000000000000000",
       },
     };
-    // Register a simple `WebSocket` outbound transport
+
+    await faber.initializeAgent(config);
     faber.agent.registerOutboundTransport(new WsOutboundTransport());
 
     // Register a simple `Http` outbound transport
     faber.agent.registerOutboundTransport(new HttpOutboundTransport());
 
-    // Register a simple `Http` inbound transport
     faber.agent.registerInboundTransport(
-      new HttpInboundTransport({ port: 3001 })
+      new HttpInboundTransport({ port: 3002 })
     );
-
-    await faber.initializeAgent(config);
     return faber;
   }
 
@@ -99,6 +98,24 @@ export class Faber extends BaseAgent {
 
     console.log("Creating credential definition...");
     this.registerCredentialDefinition();
+  }
+
+  public async issueCredential(): Promise<CredentialExchangeRecord> {
+    const anonCredsCredentialExchangeRecord =
+      await this.agent.credentials.offerCredential({
+        connectionId: "<connection id>",
+        protocolVersion: "v2",
+        credentialFormats: {
+          anoncreds: {
+            credentialDefinitionId: "<credential definition id>",
+            attributes: [
+              { name: "name", value: "Jane Doe" },
+              { name: "age", value: "23" },
+            ],
+          },
+        },
+      });
+    return anonCredsCredentialExchangeRecord;
   }
 
   private async getConnectionRecord() {
@@ -203,6 +220,7 @@ export class Faber extends BaseAgent {
 
     this.credentialDefinition = credentialDefinitionState;
     console.log("\nCredential definition registered!!\n");
+    console.log(this.credentialDefinition);
     return this.credentialDefinition;
   }
 

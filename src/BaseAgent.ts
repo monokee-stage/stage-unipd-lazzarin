@@ -35,50 +35,23 @@ import { agentDependencies, HttpInboundTransport } from "@aries-framework/node";
 import { anoncreds } from "@hyperledger/anoncreds-nodejs";
 import { ariesAskar } from "@hyperledger/aries-askar-nodejs";
 
-//type DemoAgent = Agent<ReturnType<typeof getAskarAnonCredsIndyModules>>;
+type DemoAgent = Agent<ReturnType<typeof getAskarAnonCredsIndyModules>>;
 
 export class BaseAgent {
   public port: number;
   public name: string;
-  public config: InitConfig;
-  public agent: Agent;
-  public useLegacyIndySdk: boolean;
+  public agent!: DemoAgent;
 
-  public constructor({
-    port,
-    name,
-    useLegacyIndySdk = false,
-  }: {
-    port: number;
-    name: string;
-    useLegacyIndySdk?: boolean;
-  }) {
+  public constructor({ port, name }: { port: number; name: string }) {
     this.name = name;
     this.port = port;
-
-    const config = {
-      label: name,
-      walletConfig: {
-        id: name,
-        key: name,
-      },
-      endpoints: [`http://localhost:${this.port}`],
-    } satisfies InitConfig;
-
-    this.config = config;
-
-    this.useLegacyIndySdk = useLegacyIndySdk;
-
-    this.agent = new Agent({
-      config,
-      dependencies: agentDependencies,
-      modules: getAskarAnonCredsIndyModules(),
-    });
-    this.agent.registerInboundTransport(new HttpInboundTransport({ port }));
-    this.agent.registerOutboundTransport(new HttpOutboundTransport());
   }
 
   public async initializeAgent(config: InitConfig) {
+    const legacyIndyCredentialFormatService =
+      new LegacyIndyCredentialFormatService();
+    const legacyIndyProofFormatService = new LegacyIndyProofFormatService();
+
     this.agent = new Agent({
       config,
       modules: {
@@ -103,15 +76,37 @@ export class BaseAgent {
             ],
           })
         ),
+        credentials: new CredentialsModule({
+          autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
+          credentialProtocols: [
+            new V1CredentialProtocol({
+              indyCredentialFormat: legacyIndyCredentialFormatService,
+            }),
+            new V2CredentialProtocol({
+              credentialFormats: [
+                legacyIndyCredentialFormatService,
+                new AnonCredsCredentialFormatService(),
+              ],
+            }),
+          ],
+        }),
+        proofs: new ProofsModule({
+          autoAcceptProofs: AutoAcceptProof.ContentApproved,
+          proofProtocols: [
+            new V1ProofProtocol({
+              indyProofFormat: legacyIndyProofFormatService,
+            }),
+            new V2ProofProtocol({
+              proofFormats: [
+                legacyIndyProofFormatService,
+                new AnonCredsProofFormatService(),
+              ],
+            }),
+          ],
+        }),
       },
       dependencies: agentDependencies,
     });
-
-    // Register a simple `WebSocket` outbound transport
-    this.agent.registerOutboundTransport(new WsOutboundTransport());
-
-    // Register a simple `Http` outbound transport
-    this.agent.registerOutboundTransport(new HttpOutboundTransport());
 
     await this.agent.initialize();
 
