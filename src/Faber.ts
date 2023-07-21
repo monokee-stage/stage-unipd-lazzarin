@@ -31,7 +31,7 @@ export class Faber extends BaseAgent {
   }
 
   public static async initializeAgent(): Promise<Faber> {
-    const faber = new Faber(9000, "faber");
+    const faber = new Faber(3002, "faber");
 
     const config: InitConfig = {
       label: "faber",
@@ -100,13 +100,16 @@ export class Faber extends BaseAgent {
   }
 
   public async issueCredential(): Promise<CredentialExchangeRecord> {
+    const connectionRecord = await this.getConnectionRecord();
+
     const anonCredsCredentialExchangeRecord =
       await this.agent.credentials.offerCredential({
-        connectionId: "<connection id>",
+        connectionId: connectionRecord.id,
         protocolVersion: "v2",
         credentialFormats: {
           anoncreds: {
-            credentialDefinitionId: "<credential definition id>",
+            credentialDefinitionId:
+              this.credentialDefinition!.credentialDefinitionId,
             attributes: [
               { name: "name", value: "Jane Doe" },
               { name: "age", value: "23" },
@@ -118,6 +121,8 @@ export class Faber extends BaseAgent {
   }
 
   private async getConnectionRecord() {
+    console.log("Getting connection record...");
+    console.log("this.outOfBandId: ", this.outOfBandId);
     if (!this.outOfBandId) {
       throw Error(redText(Output.MissingConnectionRecord));
     }
@@ -125,6 +130,7 @@ export class Faber extends BaseAgent {
     const [connection] = await this.agent.connections.findAllByOutOfBandId(
       this.outOfBandId
     );
+    console.log("connection: ", connection);
 
     if (!connection) {
       throw Error(redText(Output.MissingConnectionRecord));
@@ -137,7 +143,7 @@ export class Faber extends BaseAgent {
     const outOfBand = await this.agent.oob.createInvitation();
     this.outOfBandId = outOfBand.id;
     const connectionInvite = outOfBand.outOfBandInvitation.toUrl({
-      domain: `http://localhost:${this.port}`,
+      domain: `http://localhost:3002`,
     });
 
     console.log(Output.ConnectionLink, connectionInvite, "\n");
@@ -153,40 +159,6 @@ export class Faber extends BaseAgent {
         `Attributes: ${Color.Reset}${attributes[0]}, ${attributes[1]}, ${attributes[2]}\n`
       )
     );
-  }
-
-  private async registerSchema() {
-    if (!this.anonCredsIssuerId) {
-      throw new Error(redText("Missing anoncreds issuerId"));
-    }
-    const schemaTemplate = {
-      name: "Faber College" + utils.uuid(),
-      version: "1.0.0",
-      attrNames: ["name", "degree", "date"],
-      issuerId: this.anonCredsIssuerId,
-    };
-    this.printSchema(
-      schemaTemplate.name,
-      schemaTemplate.version,
-      schemaTemplate.attrNames
-    );
-
-    const { schemaState } = await this.agent.modules.anoncreds.registerSchema({
-      schema: schemaTemplate,
-      options: {
-        endorserMode: "internal",
-        endorserDid: this.anonCredsIssuerId,
-      },
-    });
-
-    if (schemaState.state !== "finished") {
-      throw new Error(
-        `Error registering schema: ${
-          schemaState.state === "failed" ? schemaState.reason : "Not Finished"
-        }`
-      );
-    }
-    return schemaState;
   }
 
   public async registerCredentialDefinition() {
@@ -224,45 +196,6 @@ export class Faber extends BaseAgent {
     console.log(this.credentialDefinition);
     return this.credentialDefinition;
   }
-
-  /*
-  public async issueCredential() {
-    const schema = await this.registerSchema();
-    const credentialDefinition = await this.registerCredentialDefinition(
-      schema.schemaId
-    );
-    const connectionRecord = await this.getConnectionRecord();
-
-    console.log("\nSending credential offer...\n");
-
-    await this.agent.credentials.offerCredential({
-      connectionId: connectionRecord.id,
-      protocolVersion: "v2",
-      credentialFormats: {
-        anoncreds: {
-          attributes: [
-            {
-              name: "name",
-              value: "Alice Smith",
-            },
-            {
-              name: "degree",
-              value: "Computer Science",
-            },
-            {
-              name: "date",
-              value: "01/01/2022",
-            },
-          ],
-          credentialDefinitionId: credentialDefinition.credentialDefinitionId,
-        },
-      },
-    });
-    console.log(
-      `\nCredential offer sent!\n\nGo to the Alice agent to accept the credential offer\n\n${Color.Reset}`
-    );
-  }
-  */
 
   private async printProofFlow(print: string) {
     console.log(print);

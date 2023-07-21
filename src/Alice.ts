@@ -20,7 +20,7 @@ export class Alice extends BaseAgent {
   }
 
   public static async initializeAgent(): Promise<Alice> {
-    const alice = new Alice(9000, "alice");
+    const alice = new Alice(3002, "alice");
 
     const config: InitConfig = {
       label: "alice",
@@ -74,11 +74,14 @@ export class Alice extends BaseAgent {
   }
 
   public async acceptInvitation(invitationUrl: string) {
-    const outOfBandRecord = await this.agent.oob.receiveInvitationFromUrl(
+    const { connectionRecord } = await this.agent.oob.receiveInvitationFromUrl(
       invitationUrl
     );
-
-    return outOfBandRecord;
+    if (!connectionRecord) {
+      throw new Error(redText(Output.NoConnectionRecordFromOutOfBand));
+    }
+    console.log(greenText(Output.ConnectionEstablished) + connectionRecord.id);
+    return connectionRecord;
   }
 
   public async acceptCredentialOffer(

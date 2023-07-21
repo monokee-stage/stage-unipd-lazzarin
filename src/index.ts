@@ -16,6 +16,7 @@ const run = async () => {
   await faber.createDid();
   await faber.creatingSchema();
   await faber.registerCredentialDefinition();
+  await faber.issueCredential();
 };
 
 export default run;
