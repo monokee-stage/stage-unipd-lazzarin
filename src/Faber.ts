@@ -53,8 +53,8 @@ export class Faber extends BaseAgent {
     return faber;
   }
 
-  public async createDidandSchema() {
-    console.log("Creating DID and Schema...");
+  public async createDid() {
+    console.log("Creating DID...");
 
     // Create a DID
     const cheqdDid = await this.agent.dids.create({
@@ -75,12 +75,14 @@ export class Faber extends BaseAgent {
     this.anonCredsIssuerId = cheqdDid.didState.did;
 
     console.log("cheqdDid: ", cheqdDid);
+  }
 
+  public async creatingSchema() {
     console.log("Creating schema...");
     this.schemaResult = await this.agent.modules.anoncreds.registerSchema({
       schema: {
         attrNames: ["name"],
-        issuerId: cheqdDid.didState.did,
+        issuerId: this.anonCredsIssuerId!,
         name: "Example Schema to register",
         version: "1.0.0",
       },
@@ -95,9 +97,6 @@ export class Faber extends BaseAgent {
     console.log("schemaResult: ", this.schemaResult);
     this.schemaResultID = this.schemaResult.schemaState.schemaId;
     console.log("schemaResultID: ", this.schemaResultID);
-
-    console.log("Creating credential definition...");
-    this.registerCredentialDefinition();
   }
 
   public async issueCredential(): Promise<CredentialExchangeRecord> {
@@ -191,6 +190,8 @@ export class Faber extends BaseAgent {
   }
 
   public async registerCredentialDefinition() {
+    console.log("Creating credential definition...");
+
     if (!this.anonCredsIssuerId) {
       throw new Error(redText("Missing anoncreds issuerId"));
     }

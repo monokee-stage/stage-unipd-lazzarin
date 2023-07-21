@@ -54,58 +54,8 @@ export class BaseAgent {
 
     this.agent = new Agent({
       config,
-      modules: {
-        askar: new AskarModule({ ariesAskar }),
-        anoncredsRs: new AnonCredsRsModule({ anoncreds }),
-        connections: new ConnectionsModule({ autoAcceptConnections: true }),
-        dids: new DidsModule({
-          registrars: [new CheqdDidRegistrar()],
-          resolvers: [new CheqdDidResolver()],
-        }),
-        anoncreds: new AnonCredsModule({
-          registries: [new CheqdAnonCredsRegistry()],
-        }),
-        cheqd: new CheqdModule(
-          new CheqdModuleConfig({
-            networks: [
-              {
-                network: "testnet",
-                cosmosPayerSeed:
-                  "robust across amount corn curve panther opera wish toe ring bleak empower wreck party abstract glad average muffin picnic jar squeeze annual long aunt",
-              },
-            ],
-          })
-        ),
-        credentials: new CredentialsModule({
-          autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
-          credentialProtocols: [
-            new V1CredentialProtocol({
-              indyCredentialFormat: legacyIndyCredentialFormatService,
-            }),
-            new V2CredentialProtocol({
-              credentialFormats: [
-                legacyIndyCredentialFormatService,
-                new AnonCredsCredentialFormatService(),
-              ],
-            }),
-          ],
-        }),
-        proofs: new ProofsModule({
-          autoAcceptProofs: AutoAcceptProof.ContentApproved,
-          proofProtocols: [
-            new V1ProofProtocol({
-              indyProofFormat: legacyIndyProofFormatService,
-            }),
-            new V2ProofProtocol({
-              proofFormats: [
-                legacyIndyProofFormatService,
-                new AnonCredsProofFormatService(),
-              ],
-            }),
-          ],
-        }),
-      },
       dependencies: agentDependencies,
+      modules: getAskarAnonCredsIndyModules(),
     });
 
     await this.agent.initialize();

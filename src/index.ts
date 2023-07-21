@@ -13,7 +13,9 @@ const run = async () => {
   console.log("Accepting the invitation as alice...");
   await alice.acceptInvitation(invitation);
 
-  await faber.createDidandSchema();
+  await faber.createDid();
+  await faber.creatingSchema();
+  await faber.registerCredentialDefinition();
 };
 
 export default run;
