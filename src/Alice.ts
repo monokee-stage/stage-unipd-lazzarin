@@ -4,6 +4,8 @@ import {
   HttpOutboundTransport,
   InitConfig,
   ProofExchangeRecord,
+  ReceiveOutOfBandImplicitInvitationConfig,
+  ReceiveOutOfBandInvitationConfig,
   WsOutboundTransport,
 } from "@aries-framework/core";
 import { BaseAgent } from "./BaseAgent";
@@ -74,8 +76,15 @@ export class Alice extends BaseAgent {
   }
 
   public async acceptInvitation(invitationUrl: string) {
+    let config: ReceiveOutOfBandInvitationConfig = {
+      autoAcceptConnection: true,
+      label: "Faber",
+      autoAcceptInvitation: true,
+    };
+
     const { connectionRecord } = await this.agent.oob.receiveInvitationFromUrl(
-      invitationUrl
+      invitationUrl,
+      config
     );
     if (!connectionRecord) {
       throw new Error(redText(Output.NoConnectionRecordFromOutOfBand));

@@ -1,11 +1,14 @@
 import {
+  Connection,
   ConnectionEventTypes,
   ConnectionRecord,
   ConnectionStateChangedEvent,
+  CreateOutOfBandInvitationConfig,
   CredentialExchangeRecord,
   DidCreateResult,
   DidDocument,
   DidOperationStateActionBase,
+  HandshakeProtocol,
   HttpOutboundTransport,
   InitConfig,
   KeyType,
@@ -127,7 +130,7 @@ export class Faber extends BaseAgent {
       throw Error(redText(Output.MissingConnectionRecord));
     }
 
-    const [connection] = await this.agent.connections.findAllByOutOfBandId(
+    const [connection] = await this.agent.connections.findByInvitationDid(
       this.outOfBandId
     );
     console.log("connection: ", connection);
@@ -140,7 +143,18 @@ export class Faber extends BaseAgent {
   }
 
   public async printInvite(): Promise<string> {
-    const outOfBand = await this.agent.oob.createInvitation();
+    let config: CreateOutOfBandInvitationConfig = {
+      label: "test Alice",
+      handshake: false,
+      handshakeProtocols: [
+        HandshakeProtocol.Connections,
+        HandshakeProtocol.DidExchange,
+      ],
+      multiUseInvitation: false,
+      autoAcceptConnection: true,
+    };
+    const outOfBand = await this.agent.oob.createInvitation(config);
+
     this.outOfBandId = outOfBand.id;
     const connectionInvite = outOfBand.outOfBandInvitation.toUrl({
       domain: `http://localhost:3002`,
