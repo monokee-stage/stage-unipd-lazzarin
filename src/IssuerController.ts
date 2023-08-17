@@ -1,6 +1,12 @@
 import { Listener } from "./Listener";
 import { Issuer } from "./Issuer";
-import { readJsonFile, writeJsonFile, SchemaAndCredDefInLedger, IssuerCredentialStatus, IssuerProofStatus } from "./Utils";
+import {
+  readJsonFile,
+  writeJsonFile,
+  SchemaAndCredDefInLedger,
+  IssuerCredentialStatus,
+  IssuerProofStatus,
+} from "./Utils";
 const path = require("path");
 
 export class IssuerController {
@@ -25,8 +31,8 @@ export class IssuerController {
     await this.issuer.waitForConnection();
   }
 
-  public isConnected(){
-    switch(this.issuer.issuerConnectionStatus){
+  public isConnected() {
+    switch (this.issuer.issuerConnectionStatus) {
       case 0:
         return "Not connected";
       case 1:
@@ -35,11 +41,11 @@ export class IssuerController {
         return "Connected";
       default:
         return "Error";
-       }
+    }
   }
 
-  public credentialStatus(){
-    switch(this.issuer.issuerCredentialStatus){
+  public credentialStatus() {
+    switch (this.issuer.issuerCredentialStatus) {
       case IssuerCredentialStatus.NONE:
         return "Not received";
       case IssuerCredentialStatus.ISSUED:
@@ -50,7 +56,7 @@ export class IssuerController {
         return "the holder has declined the credentials";
       default:
         return "Error";
-       }
+    }
   }
 
   public async issueCredential(credential: any) {
@@ -71,10 +77,10 @@ export class IssuerController {
     );
   }
 
-  public proofStatus(){
-    switch(this.issuer.issuerProofStatus){
+  public proofStatus() {
+    switch (this.issuer.issuerProofStatus) {
       case IssuerProofStatus.NONE:
-        return "Not received yet";
+        return "Error creating proof, maybe the schema or credential definition are not present or valid";
       case IssuerProofStatus.ON_HOLD:
         return "Wating for proof to be accepted";
       case IssuerProofStatus.ACCEPTED:
@@ -85,7 +91,7 @@ export class IssuerController {
         return "The proof is invalid";
       default:
         return "Error in proof status";
-       }
+    }
   }
 
   public async sendProofRequest(attribute: any) {

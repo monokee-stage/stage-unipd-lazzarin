@@ -1,4 +1,10 @@
-import { readJsonFile, writeJsonFile, SchemaAndCredDefInLedger, IssuerCredentialStatus, IssuerProofStatus } from "./Utils";
+import {
+  readJsonFile,
+  writeJsonFile,
+  SchemaAndCredDefInLedger,
+  IssuerCredentialStatus,
+  IssuerProofStatus,
+} from "./Utils";
 
 import type { Issuer } from "./Issuer";
 import type {
@@ -72,28 +78,35 @@ export class Listener {
   }
 
   public credentialListener(issuer: Issuer) {
-    issuer.agent.events.on(CredentialEventTypes.CredentialStateChanged, async ({payload}: CredentialStateChangedEvent) => {
-      
-      issuer.issuerCredentialStatus = IssuerCredentialStatus.NONE;
+    issuer.agent.events.on(
+      CredentialEventTypes.CredentialStateChanged,
+      async ({ payload }: CredentialStateChangedEvent) => {
+        issuer.issuerCredentialStatus = IssuerCredentialStatus.NONE;
 
-      if(payload.credentialRecord.state === CredentialState.CredentialIssued){
-        console.log("\n\nCredential offer sent!");
-        issuer.issuerCredentialStatus = IssuerCredentialStatus.ISSUED;
-      }else if(payload.credentialRecord.state === CredentialState.Done){
-        console.log("\n\nCredential accepted!");
-        issuer.issuerCredentialStatus = IssuerCredentialStatus.ACCEPTED;
-      }else if(payload.credentialRecord.state === CredentialState.Declined){
-        console.log("\n\nCredential declined!");
-        issuer.issuerCredentialStatus = IssuerCredentialStatus.DECLINED;
+        if (
+          payload.credentialRecord.state === CredentialState.CredentialIssued
+        ) {
+          console.log("\n\nCredential offer sent!");
+          issuer.issuerCredentialStatus = IssuerCredentialStatus.ISSUED;
+        } else if (payload.credentialRecord.state === CredentialState.Done) {
+          console.log("\n\nCredential accepted!");
+          issuer.issuerCredentialStatus = IssuerCredentialStatus.ACCEPTED;
+        } else if (
+          payload.credentialRecord.state === CredentialState.Declined
+        ) {
+          console.log("\n\nCredential declined!");
+          issuer.issuerCredentialStatus = IssuerCredentialStatus.DECLINED;
+        }
       }
-
-    })
+    );
   }
 
   public proofAcceptedListener(issuer: Issuer) {
     issuer.agent.events.on(
       ProofEventTypes.ProofStateChanged,
       async ({ payload }: ProofStateChangedEvent) => {
+        issuer.issuerProofStatus = IssuerProofStatus.NONE;
+
         if (payload.proofRecord.state === ProofState.Done) {
           console.log("\n\nProof accepted");
           issuer.issuerProofStatus = IssuerProofStatus.ACCEPTED;
