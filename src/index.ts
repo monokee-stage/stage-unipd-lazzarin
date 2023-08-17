@@ -1,23 +1,14 @@
-import { Holder } from "./Holder";
-import { Issuer } from "./Issuer";
+import express from "express";
+import cors from "cors";
 
-const run = async () => {
-  console.log("Starting...");
+import routes from "./routes/routes";
 
-  const alice = await Holder.initializeAgent();
-  const faber = await Issuer.initializeAgent();
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use("/api", routes);
 
-  console.log("Creating the invitation as issuer...");
-  const invitation = await faber.printInvite();
-
-  console.log("Accepting the invitation as holder...");
-  await alice.acceptInvitation(invitation);
-
-  await faber.createDidandSchema();
-  console.log("Creating the credential definition as issuer...");
-  await faber.registerCredentialDefinition();
-};
-
-export default run;
-
-void run();
+const PORT = (process.env.PORT || 8081) as number;
+app.listen(PORT, () => {
+  console.log("Server is running on http://localhost:" + PORT);
+});

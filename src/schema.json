@@ -1,0 +1,333 @@
+{
+  "anoncreds": {
+    "patente-1.0.7": {
+      "schemaState": {
+        "name": "patente",
+        "version": "1.0.7",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "expireDate"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/a04b330b-9142-45b5-9f2c-9215d4475a67",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/359a726e-11e0-4631-b16d-e811c68e5b67"
+    },
+    "patente-1.0.8": {
+      "schemaState": {
+        "name": "patente",
+        "version": "1.0.8",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "expireDate"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/bd8a7a05-7991-4dd0-b9ac-ecd6736f2403",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/825d6b34-325b-455b-b5b1-98cdb7f9d307"
+    },
+    "patente-1.0.12": {
+      "schemaState": {
+        "name": "patente",
+        "version": "1.0.12",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "expireDate"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/a03aff88-3fc9-42ad-af0e-d637ab532723",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/712c7d45-53e5-40b3-8e0d-3b60851047a8"
+    },
+    "patente-1.0.13": {
+      "schemaState": {
+        "name": "patente",
+        "version": "1.0.13",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "expireDate"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/0c69aa47-8e84-4348-96df-b9c208d92f1d",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/0e748d40-39c6-4cac-9bb3-46e5b228663e"
+    },
+    "patente-2.0.0": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.0",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "expireDate"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/e2a0c82c-4eb7-4848-872c-dadb4c4afc2f",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/82ef6aaa-9175-4f5b-9f3a-f30c5ef22043"
+    },
+    "patente-2.0.1": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.1",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/c9910442-aae2-48e8-ba97-eb69ac26528d",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/10c5760d-51df-40ee-8516-fc37fd762569"
+    },
+    "patente-2.0.20": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.20",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/c5b3296a-9328-4e28-9107-b00bf17ed2a9",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/454120d6-b44f-4301-8ec0-6e3a10668fa6"
+    },
+    "patente-2.0.10": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.10",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/9f466ccc-3e3d-4d1e-af79-3c30e08f4a95",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/748fde12-5cac-4d34-8c22-7ce73f6dea1b"
+    },
+    "patente-2.0.21": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.21",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/aa1e3261-e823-4705-8d95-c3edfe2b6290",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/af6fbef8-37e5-4317-8254-ecd29dcd1c56"
+    },
+    "patente-2.0.22": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.22",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/13a37e42-b262-4c01-9b5d-571c9ff1df99",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/5e4ede50-b6be-4c71-904d-f3630556f064"
+    },
+    "patente-2.0.24": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.24",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/e7b3b20e-0c33-4d13-9a9b-d7cb340591ca",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/76c0ac56-cb3e-4238-a6fb-d28551ddc9ec"
+    },
+    "patente-2.0.25": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.25",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/3153aa79-f3a9-48ef-8669-d71d2088a94a",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/75f7700b-6f19-4e5c-89df-d996a20cd6db"
+    },
+    "patente-2.0.26": {
+      "schemaState": {
+        "name": "patente",
+        "version": "2.0.26",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/11a7089e-bf4f-4501-b297-746f57e4c72a",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/1d32ea33-0dc9-4f71-a590-fc9368d92ca9"
+    },
+    "Identity card-1.0.2": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.2",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/92708993-d77d-4f83-9830-2575fc9b632f",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/ed1f6ce5-a46f-4f2f-a87a-14928b9b7496"
+    },
+    "Identity card-1.0.3": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.3",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "gesù boia"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/29089f1a-832b-4368-b900-5f7dde695007",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/59cb7e2b-d040-4fcd-b475-03418bb7999c"
+    },
+    "Identity card-1.0.4": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.4",
+        "attrNames": [
+          "name",
+          "surname",
+          "date",
+          "nationality"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/28a5ebc4-5a6c-4932-a035-37d3196aea14",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/cc7dac1f-682c-4547-9ae6-37a21cd2d283"
+    },
+    "Identity card-1.0.5": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.5",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/90d23608-f613-4997-b38a-0d136c741294",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/ba7468fc-ed75-4ed2-a487-4c45491a5a37"
+    },
+    "Identity card-1.0.10": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.10",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/b11f3ae9-febb-4ffe-98bf-a84cff0a9540",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/033df6df-d8a9-4863-919e-5234da6cf0a2"
+    },
+    "Identity card-1.0.11": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.11",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/2f972fec-5717-4979-9cde-ee6fe24b42eb",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/182e712f-e331-4622-a770-acded406fa7e"
+    },
+    "Identity card-1.0.12": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.12",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/fb075ebe-32a9-40c8-833f-5d2c76f442c6",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/3bedd8e7-6f52-426d-bb11-cae09cef5232"
+    },
+    "Identity card-1.0.13": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.13",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/f2010e38-6d25-43e4-8fc2-79b5c8c3a803",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/f1f6c0b0-9f12-495c-8d9b-7d62fe420fa2"
+    },
+    "Identity card-1.0.14": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.14",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/341ac026-7505-41e8-93b6-d1281fef18eb",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/eb4730ca-578f-4a30-80e9-e3111dbf88c1"
+    },
+    "Identity card-1.0.16": {
+      "schemaState": {
+        "name": "Identity card",
+        "version": "1.0.16",
+        "attrNames": [
+          "name",
+          "surname",
+          "date"
+        ],
+        "issuerId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1"
+      },
+      "schemaId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/64188994-e4bd-4498-9995-52e07835934e",
+      "credentialDefinitionId": "did:cheqd:testnet:b6843bcc-2a34-431a-bb61-958c03c91ba1/resources/d6bb51f2-7a06-42d9-891c-b6f9a8ee29e4"
+    }
+  }
+}

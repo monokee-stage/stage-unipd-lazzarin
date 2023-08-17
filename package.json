@@ -1,29 +1,50 @@
 {
-  "name": "aries-project",
+  "name": "apirest-aries",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "source/server.ts",
+  "scripts": {
+    "start": "nodemon",
+    "dev": "nodemon source/server.ts",
+    "build": "rm -rf build/ && prettier --write source/ && tsc"
+  },
   "author": "",
   "license": "ISC",
-  "scripts": {
-    "start": "ts-node src/index.ts",
-    "refresh": "rm -rf ./node_modules ./yarn.lock && yarn"
-  },
   "dependencies": {
+    "@hyperledger/indy-vdr-nodejs": "^0.1.0",
     "@hyperledger/anoncreds-nodejs": "^0.1.0",
     "@hyperledger/aries-askar-nodejs": "^0.1.0",
+    "@types/axios": "^0.14.0",
+    "@types/morgan": "^1.9.4",
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.1",
     "inquirer": "^8.2.5",
     "typescript": "^5.1.6"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/compression": "^1.7.2",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@aries-framework/indy-sdk": "*",
+    "@aries-framework/indy-vdr": "*",
     "@aries-framework/anoncreds": "*",
     "@aries-framework/anoncreds-rs": "*",
     "@aries-framework/askar": "*",
     "@aries-framework/cheqd": "*",
     "@aries-framework/core": "*",
     "@aries-framework/node": "*",
+    "@types/indy-sdk": "^1.16.26",
     "@types/figlet": "^1.5.4",
     "@types/inquirer": "^8.2.6",
+    "indy-sdk": "^1.16.0-dev-1655",
     "clear": "^0.1.0",
     "figlet": "^1.5.2",
     "ts-node": "^10.4.0"
@@ -37,5 +58,9 @@
     "@cosmjs/utils": "npm:@cosmjs-rn/utils@^0.27.1",
     "@cosmjs/proto-signing": "npm:@cosmjs-rn/proto-signing@^0.27.1",
     "@cosmjs/crypto": "npm:@cosmjs-rn/crypto@^0.27.1"
+  },
+  "resolutions": {
+    "@types/node": "^16.11.7",
+    "ref-napi": "npm:@2060.io/ref-napi"
   }
 }
